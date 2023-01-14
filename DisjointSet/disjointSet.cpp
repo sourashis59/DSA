@@ -13,6 +13,7 @@ class DisjointSet
 public:
     DisjointSet(int n)
     {
+        this->n = n;
         parent = new int[n];
         treeSize = new int[n];
 
