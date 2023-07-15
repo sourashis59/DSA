@@ -121,6 +121,9 @@ private:
             long long leftVal = rangeQueryHelper(root->left, qlow, mid);
             long long rightVal = rangeQueryHelper(root->right, mid+1, qhigh);
             
+            if(leftVal == -1 || rightVal == -1)
+                return -1;
+                
             return combine(leftVal, rightVal);
         }
     }
