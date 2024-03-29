@@ -6,64 +6,53 @@ using namespace std;
 
 class DisjointSet
 {
-    int *parent;
-    int *treeSize;
     int n;
+    vector<int> parent;
+    vector<int> treeSize;
 
 public:
-    DisjointSet(int n)
-    {
-        this->n = n;
-        parent = new int[n];
-        treeSize = new int[n];
-
-        for (int i = 0; i < n; i++)
-        {
+    DisjointSet(int n): n(n) {
+        treeSize = vector<int>(n, 1);
+        parent = vector<int>(n);
+        for (int i = 0; i < n; ++i)
             parent[i] = i;
-            treeSize[i] = 1;
-        }
     }
 
-    //*returns root of the tree containing x (returns the identifier of the set containing x)
+    //*recursive: find(x) = makes ancestors of x point to root, and returns root
     //*Path compression: make the root of the tree parent of all nodes in the path from root to x
-
-    int findSet(int x)
-    {
-        // doesnt exist
-        if (x < 0 || x >= this->n)
-            return -1;
-
-        if (x == parent[x])
-            return x;
-
-        int root = findSet(parent[x]);
-
-        //*for path compression: make the root of the tree parent of x
-        parent[x] = root;
-
-        return root;
+    int findRoot(int x) {
+        if (x != parent[x]) parent[x] = findRoot(parent[x]);
+        return parent[x];
     }
 
-    void unionSets(int x, int y)
-    {
-        int root1 = findSet(x);
-        int root2 = findSet(y);
+    //iterative
+    int findRootIterative(int x) {
+        while(x != parent[x]) {
+            parent[x] = parent[parent[x]];
+            x = parent[x];
+        }
+        return x;
+    }
 
-        if (root1 == root2)
+    void doUnion(int x, int y) {
+        int rootX = findRoot(x);
+        int rootY = findRoot(y);
+        if (rootX == rootY)
             return;
 
-        if (this->treeSize[root1] <= this->treeSize[root2])
-        {
-            parent[root1] = root2;
-            this->treeSize[root2] += this->treeSize[root1];
-        }
-        else
-        {
-            parent[root2] = root1;
-            this->treeSize[root1] += this->treeSize[root2];
-        }
+        //make rootX point to smaller tree root
+        if (treeSize[rootX] > treeSize[rootY]) 
+            swap(rootX, rootY);
+
+        parent[rootX] = rootY;
+        treeSize[rootY] += treeSize[rootX];
+    }
+
+    bool connected(int x, int y) {
+        return findRoot(x) == findRoot(y);
     }
 };
+
 
 int main()
 {
