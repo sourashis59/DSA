@@ -56,6 +56,10 @@ public:
     bool connected(int x, int y) {
         return findRoot(x) == findRoot(y);
     }
+    
+    int getTreeSizeOfNode(int x) {
+        return treeSize[findRoot(x)];
+    }
 };
 
 
