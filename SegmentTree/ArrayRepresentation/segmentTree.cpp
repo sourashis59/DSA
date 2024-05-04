@@ -9,18 +9,18 @@ private:
     //arry of size 4n to store the tree
     //leftChild(i) = 2i + 1
     //rightChild(i) = 2i + 2
-    vector<int> tree;
+    vector<long long> tree;
     //size of the actual array(range)
     int n;
 
 public:
     SegmentTree(const vector<long long> &arr) {
         n = arr.size();
-        tree = vector<int> (4 * n);
+        tree = vector<long long> (4 * n);
         build(0, 0, n - 1, arr);
     }
 
-    int rangeQuery(int qlow, int qhigh) {
+    long long rangeQuery(int qlow, int qhigh) {
         return rangeQuery(0, 0, n - 1, qlow, qhigh);
     }
 
