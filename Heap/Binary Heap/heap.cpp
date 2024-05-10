@@ -1,8 +1,7 @@
-///ALL THE FUNCTIONS ARE FOR MAX HEAP
-
 #include <iostream>
 using namespace std;
 
+//min heap
 class PriorityQueue {
 private:
     vector<long long> arr;
