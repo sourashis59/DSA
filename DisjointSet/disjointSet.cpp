@@ -35,17 +35,14 @@ public:
     }
 
     void doUnion(int x, int y) {
-        int rootX = findRoot(x);
-        int rootY = findRoot(y);
-        if (rootX == rootY)
-            return;
+        x = findRoot(x), y = findRoot(y);
+        if (x == y) return;
+        //make x point to smaller tree root
+        if (treeSize[x] > treeSize[y]) 
+            swap(x, y);
 
-        //make rootX point to smaller tree root
-        if (treeSize[rootX] > treeSize[rootY]) 
-            swap(rootX, rootY);
-
-        parent[rootX] = rootY;
-        treeSize[rootY] += treeSize[rootX];
+        parent[x] = y;
+        treeSize[y] += treeSize[x];
     }
 
     bool connected(int x, int y) {
