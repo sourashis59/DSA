@@ -9,9 +9,11 @@ class DisjointSet
     int n;
     vector<int> parent;
     vector<int> treeSize;
+    int componentCount;
 
 public:
     DisjointSet(int n): n(n) {
+        componentCount = n;
         treeSize = vector<int>(n, 1);
         parent = vector<int>(n);
         for (int i = 0; i < n; ++i)
@@ -43,6 +45,7 @@ public:
 
         parent[x] = y;
         treeSize[y] += treeSize[x];
+        --componentCount;
     }
 
     bool connected(int x, int y) {
@@ -51,6 +54,10 @@ public:
 
     int getTreeSizeOfNode(int x) {
         return treeSize[findRoot(x)];
+    }
+
+    int getComponentCount() {
+        return componentCount;
     }
 };
 
