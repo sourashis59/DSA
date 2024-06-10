@@ -1,3 +1,5 @@
+
+
 class DynamicArray {
     int *arr;
     int size;
@@ -17,6 +19,10 @@ public:
         arr = new int[capacity];
     }
 
+    virtual ~DynamicArray() {
+        delete []arr;
+    }
+    
     int size() {
         return size;
     }
@@ -57,3 +63,12 @@ public:
     }
 
 };
+
+
+class MyStack {
+    DynamicArray arr;
+
+public:
+    MyStack() {
+    }
+}
