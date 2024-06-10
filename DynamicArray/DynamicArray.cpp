@@ -64,11 +64,3 @@ public:
 
 };
 
-
-class MyStack {
-    DynamicArray arr;
-
-public:
-    MyStack() {
-    }
-}
