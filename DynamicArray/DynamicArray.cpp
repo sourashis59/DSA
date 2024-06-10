@@ -1,5 +1,6 @@
+template <typename T>
 class DynamicArray {
-    int *_arr;
+    T *_arr;
     int _size;
     int _capacity;
 
@@ -10,7 +11,7 @@ public:
     DynamicArray() {
         _size = 0;
         _capacity = INITIAL_CAPACITY;
-        _arr = new int[_capacity];
+        _arr = new T[_capacity];
     }
 
     ~DynamicArray() {
@@ -25,16 +26,16 @@ public:
         return _capacity;
     }
 
-    int front() {
+    T front() {
         return _arr[0];
     }
 
-    int back() {
+    T back() {
         return _arr[_size - 1];
     }
 
     void resize(int newCapacity) {
-        int *copy = new int[newCapacity];
+        T *copy = new T[newCapacity];
         for (int i = 0; i < _size; ++i)
             copy[i] = _arr[i];
         
@@ -43,7 +44,7 @@ public:
         _capacity = newCapacity;
     }
 
-    void push_back(int val) {
+    void push_back(T val) {
         if (_size == _capacity) 
             resize(_capacity * GROWTH_FACTOR);
         
@@ -57,7 +58,43 @@ public:
     }
 
 };
-int DynamicArray::INITIAL_CAPACITY = 8;
-double DynamicArray::GROWTH_FACTOR = 1.5;
-double DynamicArray::DELETION_FACTOR = 4;
+// Define and initialize static member variables outside the class
+template <typename T>
+int DynamicArray<T>::INITIAL_CAPACITY = 8;
+
+template <typename T>
+double DynamicArray<T>::GROWTH_FACTOR = 1.5;
+
+template <typename T>
+double DynamicArray<T>::DELETION_FACTOR = 4;
         
+
+
+
+template <typename T>
+class DynamicArrayStack {
+    DynamicArray<T> arr;
+
+public:
+    DynamicArrayStack() {}
+
+    int size() {
+        return arr.size();
+    }
+
+    bool empty() {
+        return arr.size() == 0;
+    }
+
+    void push(T val) {
+        arr.push_back(val);
+    }
+
+    void pop() {
+        arr.pop_back();
+    }
+
+    T top() {
+        return arr.back();
+    }
+};
