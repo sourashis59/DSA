@@ -6,7 +6,7 @@ class DynamicArray {
 
     static int INITIAL_CAPACITY;
     static double GROWTH_FACTOR;
-    static double DELETION_FACTOR;
+    static int DELETION_FACTOR;
 public:
     DynamicArray() {
         _size = 0;
@@ -53,8 +53,8 @@ public:
 
     void pop_back() {
         --_size;
-        if (_capacity > INITIAL_CAPACITY && _size * DELETION_FACTOR <= _capacity)
-            resize((double)_capacity / DELETION_FACTOR);
+        if (_capacity > INITIAL_CAPACITY && _size == _capacity / DELETION_FACTOR)
+            resize(_capacity / GROWTH_FACTOR);
     }
 
 };
@@ -63,10 +63,10 @@ template <typename T>
 int DynamicArray<T>::INITIAL_CAPACITY = 8;
 
 template <typename T>
-double DynamicArray<T>::GROWTH_FACTOR = 1.5;
+double DynamicArray<T>::GROWTH_FACTOR = 2;
 
 template <typename T>
-double DynamicArray<T>::DELETION_FACTOR = 4;
+int DynamicArray<T>::DELETION_FACTOR = 4;
         
 
 
