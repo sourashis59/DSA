@@ -1,5 +1,6 @@
 
 
+
 template <typename T>
 class DynamicArray {
     T *_arr;
@@ -87,9 +88,9 @@ public:
     virtual ~Stack() {}
     virtual void push(const T& value) = 0;
     virtual void pop() = 0;
-    virtual T top() const = 0;
-    virtual int size() const = 0;
-    virtual bool empty() const = 0;
+    virtual T top() = 0;
+    virtual int size() = 0;
+    virtual bool empty() = 0;
 };
 
 
@@ -101,13 +102,12 @@ class DynamicArrayStack: public Stack<T> {
 
 public:
     DynamicArrayStack() {}
-    int size() { return arr.size();}
-    bool empty() { return arr.size() == 0; }
-    void push(T val) {arr.push_back(val);}
-    void pop() {arr.pop_back();}
-    T top() {return arr.back();}
+    int size() override { return arr.size();}
+    bool empty() override { return arr.size() == 0; }
+    void push(const T& val) override {arr.push_back(val);}
+    void pop() override {arr.pop_back();}
+    T top() override {return arr.back();}
 };
-
 
 
 
