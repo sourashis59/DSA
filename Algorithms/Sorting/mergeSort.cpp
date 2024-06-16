@@ -3,6 +3,8 @@ public:
     vector<int> aux;
 
     void merge(int low, int mid, int high, vector<int>  &arr) {
+        if (arr[mid] <= arr[mid + 1]) return;
+
         int i = low, j = mid + 1, k = low;
         while (i <= mid && j <= high) {
             if (arr[i] <= arr[j]) aux[k++] = arr[i++]; 
