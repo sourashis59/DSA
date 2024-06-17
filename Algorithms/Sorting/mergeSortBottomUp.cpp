@@ -21,8 +21,8 @@ public:
         int n = a.size();
         for (int halfSize = 1; halfSize < n; halfSize *= 2) {
             //merge 2 halves, till 2nd half exists [i.e. (mid + 1) < n]
-            for (int low = 0; low + halfSize < n; low += 2 * halfSize) {
-                int mid = low + halfSize - 1;
+            for (int low = 0; low < n; low += 2 * halfSize) {
+                int mid = min(n - 1, low + halfSize - 1);
                 int high = min(n - 1, mid + halfSize);
                 merge(low, mid, high, a, aux); 
             }
@@ -35,4 +35,3 @@ public:
         return a;    
     }
 };
-
