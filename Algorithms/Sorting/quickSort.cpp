@@ -1,6 +1,10 @@
 class TwoWayQuickSort {
 public:
 
+    bool less(int a, int b) {
+        return a < b;
+    }
+
     int partition(int low, int high, vector<int> &arr) {
         int pivot = arr[low];
         int i = low + 1, j = high;
@@ -8,14 +12,14 @@ public:
             //SOME EDGE CONDITION: 
             //DONT PUT EQUAL HERE --> IT WILL BE SLOWER (PARTITIONING WILL BE BAD)
             //IF MOST ELEMENTS ARE EQUAL 
-            if (arr[i] < pivot) ++i;
-            else if (arr[j] > pivot) --j;
-            else swap(arr[i++], arr[j--]); 
+            if (less(arr[i], pivot)) ++i;
+            else if (less(pivot, arr[j])) --j;
+            else swap(arr[i++], arr[j--]);
         }
-        swap(arr[j], arr[low]);
+        if (less(arr[j], arr[low])) swap(arr[j], arr[low]);
         return j;
     }
-
+    
     void quickSort(int low, int high, vector<int> &arr) {
         if (low >= high) return;
         int p = partition(low, high, arr);
