@@ -1,17 +1,14 @@
 class Solution {
 public:
-    int partition(int low, int high, vector<int> &arr) {
-        int pivot = arr[low];
+    int partition(int low, int high, vector<int> &a) {
+        int pivot = a[low];
         int i = low + 1, j = high;
         while (i <= j) {
-            //SOME EDGE CONDITION: 
-            //DONT PUT EQUAL HERE --> IT WILL BE SLOWER (PARTITIONING WILL BE BAD)
-            //IF MOST ELEMENTS ARE EQUAL 
-            if (arr[i] < pivot) ++i;
-            else if (arr[j] > pivot) --j;
-            else swap(arr[i++], arr[j--]); 
+            if (a[i] < pivot) ++i;
+            else if (a[j] > pivot) --j;
+            else if (i <= j) swap(a[i++], a[j--]);
         }
-        swap(arr[j], arr[low]);
+        if (a[low] > a[j]) swap(a[low], a[j]);
         return j;
     }
 
@@ -31,9 +28,21 @@ public:
         }
     }
     
-    //returns index
-    int quickSelect(vector<int>& nums, int k) {
-        // shuffle(nums);
-        return quickSelect(0, nums.size() - 1, nums, k);    
+    void quickSelectTopDown(vector<int>& nums, int k) {
+        shuffle(nums);
+        quickSelect(0, nums.size() - 1, nums, k);    
+    }
+
+
+    // ------------------ BOTTOM-UP --------------------------------//
+    void quickSelectBottomUp(int k, vector<int> &arr) {
+        shuffle(arr);
+        int low = 0, high = arr.size() - 1;
+        while (low < high) {
+            int p = partition(low, high, arr);
+            if (p == k) return;
+            else if (p < k) low = p + 1;
+            else high = p - 1;
+        }
     }
 };
