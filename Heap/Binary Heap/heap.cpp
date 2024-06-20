@@ -47,7 +47,7 @@ class Heap {
     // }
 
 public:
-    Heap(): a(vector<int>()) {}
+    Heap(): {}
 
     void push(int val) {
         a.push_back(val);
