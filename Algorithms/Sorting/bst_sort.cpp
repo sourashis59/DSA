@@ -130,6 +130,8 @@ public:
         BST bst;
 
         // shuffle is important for performance
+        // if you add keys in bst in random order,
+        // then height remains ~ N * logN
         shuffle(a);
         
         for (int x: a) {
