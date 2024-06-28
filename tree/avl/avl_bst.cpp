@@ -55,7 +55,11 @@ class AVLTree {
     }
 
     public: int minKey() {
-        return min(root)->key;
+        return minNode(root)->key;
+    }
+
+    public: int maxKey() {
+        return maxNode(root)->key;
     }
 
     public: vector<int> keysInorder() {
@@ -173,10 +177,17 @@ class AVLTree {
     }
 
 
-    private: Node *min(Node *root) {
+    private: Node *minNode(Node *root) {
         if (root == nullptr) return nullptr;
         Node *x = root;
         while (x->left != nullptr) x = x->left;
+        return x;
+    }
+
+    private: Node *maxNode(Node *root) {
+        if (root == nullptr) return nullptr;
+        Node *x = root;
+        while (x->right != nullptr) x = x->right;
         return x;
     }
 
@@ -260,7 +271,7 @@ class AVLTree {
             }
 
             // case: 2 children
-            Node *successor = min(root->right);
+            Node *successor = minNode(root->right);
             root->key = successor->key;
             root->val = successor->val; 
             root->right = remove(root->right, successor->key);
@@ -329,6 +340,31 @@ int main() {
             throw new runtime_error("\nheight became more than 1.5 logN");
         }
 
+        vector<int> inorder = bst.keysInorder();
+        if (!isSorted(inorder)) {
+            throw new runtime_error("\nNot sorted");
+        }
+    }
+
+    while (bst.size()) {
+        if (bst.size() % 1000 == 0) printf("\ntreeSize=%d, treeHeight=%d", bst.size(), bst.height());
+
+        // delete random key
+        int treeSize = bst.size();
+        int k = rand() % treeSize;
+        int keyToDelete = bst.select(k); // k-th smallest element in bst
+        bst.remove(keyToDelete);
+
+
+        // // delete terminal key
+        // bst.remove(bst.maxKey());
+
+        if (bst.size() > 2 && bst.height() > 1.5 * log2(bst.size())) {
+            int h = bst.height();
+            int size = bst.size();
+            throw new runtime_error("\nheight became more than 1.5 logN");
+        }
+        
         vector<int> inorder = bst.keysInorder();
         if (!isSorted(inorder)) {
             throw new runtime_error("\nNot sorted");
