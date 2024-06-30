@@ -154,7 +154,7 @@ class LeftLeaningRedBlackBST {
 
 
     // left rotates the node p and updates the 
-    // height and size of the changed nodes 
+    // size of the changed nodes 
     private: Node *leftRotate(Node *p) {
         Node *pr = p->right;
         p->right = pr->left;
@@ -197,13 +197,17 @@ class LeftLeaningRedBlackBST {
     private: Node *balance(Node *root) {
         //always left-leaning, so only need to check isRed(left)
         // null link can't be red, so we dont need to check root->left != null
+        
+        // lean left
         if (isRed(root->right) && !isRed(root->left)) root = leftRotate(root);
+        // balance 4-node
         if (isRed(root->left) && isRed(root->left->left)) root = rightRotate(root);
+        //split 4-node
         if (isRed(root->left) && isRed(root->right)) flipColors(root);
         
         return root;
     }
-
+    
     private: Node *put(Node *root, int key, int val) {
         if (root == nullptr) return new Node(key, val, true);
         if (root->key == key) root->val = val;
