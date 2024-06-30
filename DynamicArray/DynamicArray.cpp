@@ -33,7 +33,7 @@ public:
     T back() {
         return _arr[_size - 1];
     }
-
+    
     void resize(int newCapacity) {
         T *copy = new T[newCapacity];
         for (int i = 0; i < _size; ++i)
@@ -56,6 +56,13 @@ public:
         if (_capacity > INITIAL_CAPACITY && _size == _capacity / DELETION_FACTOR)
             resize(_capacity / GROWTH_FACTOR);
     }
+
+    // // constant time: only need to swap 3 fields
+    // void swap(vector<T> &that) {
+    //     // swap size
+    //     // swap capacity
+    //     // swap pointer (_arr)
+    // }
 
 };
 // Define and initialize static member variables outside the class
