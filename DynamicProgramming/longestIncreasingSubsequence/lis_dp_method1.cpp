@@ -10,7 +10,7 @@ public:
     // starting from i-th index of a[]
     int lis(int i) {
         if (memo[i] != -1) return memo[i];
-        if (i == n - 1) return 1;
+        if (i == n) return 0;
         int res = 0;
         for (int j = i + 1; j < n; ++j) {
             if (a[j] > a[i]) 
@@ -30,10 +30,10 @@ public:
 
     int bottomUp() {
         vector<int> l = vector<int>(n + 1);
-        for (int i = n - 1; i >= 0; --i) {
+        for (int i = n; i >= 0; --i) {
             // copy pasta
-            if (i == n - 1) {
-                l[i] = 1;
+            if (i == n) {
+                l[i] = 0;
                 continue;
             }
             int res = 0;
