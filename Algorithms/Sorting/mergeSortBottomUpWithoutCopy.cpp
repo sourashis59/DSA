@@ -40,7 +40,7 @@ public:
                 //CHANGE: at odd level, merge a[low...mid] and a[mid+1...high] into aux[low...high]
                 //and at even level do the opposite    
                 if (level % 2 == 1) merge(low, mid, high, a, aux);
-                else                 merge(low, mid, high, aux, a);                 
+                else                merge(low, mid, high, aux, a);                 
             }
             ++level;            
         }
