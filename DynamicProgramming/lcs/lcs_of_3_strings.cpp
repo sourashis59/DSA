@@ -5,6 +5,7 @@ class Solution
     
 public:
     
+    
     int bottomUp() {
         // l(i, j, k) = length of lcs of s1[i...end], s2[j...end], s3[k...end]
         vector<vector<vector<int>>> l(n1 + 1, vector<vector<int>>(n2 + 1, vector<int>(n3 + 1)));
@@ -18,12 +19,13 @@ public:
                     
                     int res = 0;
                     if (s1[i] == s2[j] && s2[j] == s3[k]) res = 1 + l[i + 1][j + 1][k + 1];
-                    else res = max({l[i][j][k + 1],
+                    else res = max({
+                                    l[i][j][k + 1],
                                     l[i][j + 1][k],
-                                    l[i][j + 1][k + 1],
+                                    // l[i][j + 1][k + 1],
                                     l[i + 1][j][k],
-                                    l[i + 1][j][k + 1],
-                                    l[i + 1][j + 1][k]
+                                    // l[i + 1][j][k + 1],
+                                    // l[i + 1][j + 1][k]
                         
                                 });
                     
