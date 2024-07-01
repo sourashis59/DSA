@@ -22,6 +22,7 @@ public:
         vector<vector<int>> l(m + 1, vector<int>(n + 1, 0));
         for (int i = m; i >= 0; --i) {
             for (int j = n; j >= 0; --j) {
+                // copy paste
                 if (i == m || j == n) {
                     l[i][j] = 0;
                     continue;
