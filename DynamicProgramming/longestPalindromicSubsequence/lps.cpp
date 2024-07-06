@@ -26,7 +26,7 @@ public:
 
 
     int bottomUp() {
-        vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n));
+        vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n, 0));
         for (int i = n - 1; i >= 0; --i) {
             for (int j = i; j < n; ++j) {
                 // copy paste
