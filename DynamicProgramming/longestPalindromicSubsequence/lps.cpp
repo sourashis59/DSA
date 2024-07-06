@@ -35,11 +35,7 @@ public:
                     continue;
                 }
                 int res = 0;
-                if (s[i] == s[j]) {
-                    res = 2;
-                    // CHANGE
-                    if (i + 1 <= j - 1) res += lps[i + 1][j - 1];
-                }
+                if (s[i] == s[j]) res = 2 + lps[i + 1][j - 1];
                 else res = max(lps[i][j - 1], lps[i + 1][j]);
                 lps[i][j] = res;
             }
