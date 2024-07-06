@@ -29,7 +29,7 @@ public:
         vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n));
         for (int i = n - 1; i >= 0; --i) {
             for (int j = i; j < n; ++j) {
-                // copy paste (except i>j condition)
+                // copy paste
                 if (i == j) {
                     lps[i][j] = 1;
                     continue;
