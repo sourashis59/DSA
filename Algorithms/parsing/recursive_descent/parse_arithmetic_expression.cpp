@@ -1,9 +1,54 @@
-//* leetcode question: https://leetcode.com/problems/basic-calculator/
-
 #include<bits/stdc++.h>
 
 using namespace std;
 
+
+/*
+ * Supported operators: 
+ *      binary: +, -, *, /
+ *      unary: -
+ * 
+ * Precedence:
+ *      unary -
+ *      /, *
+ *      +, -
+ *      
+ *      if operators with equal precedence are one after other:
+ *      example: 1 - 2 + 3 
+ *      parse tree should be: ((1 - 2) + 3), not (1 - (2 + 3))
+ *      i.e., the left most operator should be operated in case of equal precedence 
+ *      [similar for * and /]
+ *       
+ * Grammar: (right recursive, unambiguous)
+ * ---------------------- 
+ * E -> T - E 
+ *      T + E
+ *      T
+ * 
+ * T -> F * T
+ *      F / T
+ *      F
+ * 
+ * F -> -F
+ *      (E)
+ *      number
+ * 
+ * Problem with this:
+ * -------------------
+ *      for this example: 1 - 2 + 3
+ *      The first production rule will match: E -> T - E
+ *      which will generate parse tree: (1 - (...E: to be generated...))
+ *      Which is wrong.
+ *      
+ * Solution grammar:
+ *      We can modify the first grammar rule to fix this:
+ *      E -> T {'+'|'-' T}   
+ *      
+ *      Similarly, 
+ *      T -> F {'*'|'/' F}
+ *      
+ * 
+ */
 enum TokenType {
     NUMBER,
     ADD, 
@@ -34,8 +79,11 @@ unordered_map<char, TokenType> Token::char_to_type_map = {
 };
 
 
+
 class Lexer {
 public:
+    //* parses the input stream and returns stream of tokens
+    //* throws runttime_error if input is not valid
     static queue<Token> tokenize(const string &input) {
         //* init
         int pos = 0;
@@ -198,7 +246,11 @@ class Parser {
         }
 
         Node *parse() {
-            return parseE();
+            Node *parse_tree = parseE();
+            if (!q.empty()) 
+                throw runtime_error("Trailing characters!");
+            
+            return parse_tree;
         }
 
     private:
@@ -210,10 +262,11 @@ class Parser {
             return (q.size() && q.front().type == type);
         }
 
+        //* parse Expression
         Node *parseE() {
             Node *node = parseT();
-            // add and subtract operators have equal precedence
-            // if both are present left one should be executed first
+            //* add and subtract operators have equal precedence
+            //* if both are present left one should be evaluated first
             while (match(TokenType::ADD) || match(TokenType::SUBTRACT)) {
                 TokenType oprtr = peek().type;
                 q.pop(); //* consume
@@ -224,10 +277,11 @@ class Parser {
             return node;
         }
 
+        //* parse Term
         Node *parseT() {
             Node *node = parseF();
-            // multiply and divide operators have equal precedence
-            // if both are present left one should be executed first [that's why this while loop]
+            //* multiply and divide operators have equal precedence
+            //* if both are present left one should be evaluated first [that's why this while loop]
             while (match(TokenType::MULTIPLY) || match(TokenType::DIVIDE)) {
                 TokenType oprtr = peek().type;
                 q.pop(); //* consume
@@ -238,11 +292,18 @@ class Parser {
             return node;
         }
 
+        //* parse Factor
         Node *parseF() {
             if (match(TokenType::SUBTRACT)) {
                 q.pop();
                 return new UnaryNegateNode(parseF());
-            } else if (match(TokenType::OPENING_PARENTHESIS)) {
+            }
+            if (match(TokenType::NUMBER)) {
+                Node* node = new NumberNode(peek().value);
+                q.pop();
+                return node;
+            }
+            if (match(TokenType::OPENING_PARENTHESIS)) {
                 q.pop();
                 Node *node = parseE();
                 if (!match(TokenType::CLOSING_PARENTHESIS)) 
@@ -250,18 +311,16 @@ class Parser {
                 
                 q.pop();
                 return node;
-            } else if (match(TokenType::NUMBER)) {
-                Node* node = new NumberNode(peek().value);
-                q.pop();
-                return node;
-            } else {
-                throw runtime_error("Invalid token!");
-            }
+            } 
+            
+            //* else 
+            throw runtime_error("Invalid token!");
         }
     };
 
 public:
-
+    //* parses the input string and returns the root of the parse tree
+    //* throws runtime_error if parsing is not successful
     static Node *parse(const string &input) {
         ParserHelper util(input);
         return util.parse();
@@ -269,8 +328,8 @@ public:
 };
 
 int main () {
-    string input = "1 + 1";
-    // string input = "((1 +      3213) / 123 * 23 / 12 / 23 / 56 * (1 + (-2)))";
+    // string input = "1 + -1  / * 12";
+    string input = "((1 +      3213) / 123 * 23 / 12 / 23 / 56 * (1 + (-2)))";
     string expected_output = "(((((((1+3213)/123)*23)/12)/23)/56)*(1+(-2)))";
     // string input = "1 - 2 + 3";
     // string input = "(1+(4+5+2)-3)+(6+8)";
@@ -285,6 +344,7 @@ int main () {
     // }
 
     Node *parseTree = Parser::parse(input);
+
     string parse_tree_string = parseTree->to_string();
     cout << "\nparse tree: " << parse_tree_string;
     cout << "\nis it equal?: " << (parse_tree_string == expected_output);
