@@ -65,3 +65,10 @@ shortest_dist(source, target) {
   return dist;
 }
 ```
+
+### Time complexity proof:
+- Each node can be enqueued atmost twice.
+- Because for all node we start with dist[v] = INT_MAX
+- And we insert a node v into q, if we find a better path than the previous one [i.e., we find shorter dist from source to v, than current dist[v]]
+- dist[v] can become INT_MAX --> 1 --> 0 [so at most 2 times dist[v] can change]
+
