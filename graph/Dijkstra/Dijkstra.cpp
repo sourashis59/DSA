@@ -30,6 +30,12 @@ public:
           myPair u = q.top();
           q.pop();
           //* optional: but good for performance
+          // This condition will have affect.
+          // Suppose {u, dist=10} was inserted into queue at some point
+          // and later we found a better path from some other node to u 
+          // and put {u, dist = 5} into queue. So the less distance u node
+          // will be dequeued first, and for the rest of the u node elements 
+          // from queue, we can ignore 
           if (visited[u.node])
               continue;
               
@@ -37,9 +43,11 @@ public:
           for (const auto& ele : adj[u.node]) {
               int v = ele[0];
               int w = ele[1];
-              // optional: but good for performance
-              if(visited[v]) 
-                continue;
+              // This visited check will not do any improvement
+              // because next relaxation condition would not satisfy 
+              // if the node v was already processed
+              // if(visited[v]) 
+                // continue;
                   
               if ( d[u.node] + w < d[v]) {
                   d[v] = d[u.node] + w;
