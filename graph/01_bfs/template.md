@@ -70,5 +70,6 @@ shortest_dist(source, target) {
 - Each node can be enqueued atmost twice.
 - Because for all node we start with dist[v] = INT_MAX
 - And we insert a node v into q, if we find a better path than the previous one [i.e., we find shorter dist from source to v, than current dist[v]]
-- dist[v] can become INT_MAX --> 1 --> 0 [so at most 2 times dist[v] can change]
+- We can observe, at any point of time, the queue will have atmost 2 levels with max difference 1
+- dist[v] can become INT_MAX --> x --> x-1 [so at most 2 times dist[v] can change]
 
