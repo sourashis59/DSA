@@ -1,6 +1,5 @@
     bool isCycle(int n, vector<int> adj[]) {
-        
-        //* detect parallel edges
+        //* detect parallel edges and self loops
         unordered_set<int> adjNodes;
         for (int u = 0; u < n; ++u) {
             adjNodes.clear();
@@ -18,7 +17,7 @@
         for (int u = 0; u < n; ++u) {
             for (int v: adj[u]) {
                 //* check only unique edges
-                //* in undirected graph, we have both u->v and v->u
+                //* Because, in undirected graph, we have both u->v and v->u
                 
                 //* if u > v, then this edge was already processed 
                 //* while procesing v
