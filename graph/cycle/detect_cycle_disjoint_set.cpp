@@ -1,21 +1,22 @@
     bool isCycle(int n, vector<int> adj[]) {
         
         //* detect parallel edges
-        vector<unordered_set<int>> newAdj(n);
+        unordered_set<int> adjNodes;
         for (int u = 0; u < n; ++u) {
+            adjNodes.clear();
             for (int v: adj[u]) {
                 //* parallel edge detected
-                if (newAdj[u].count(v)) return true;
+                if (adjNodes.count(v)) return true;
                 //* self loop
                 if (u == v) return true;
                 
-                newAdj[u].insert(v);
+                adjNodes.insert(v);
             }
         }
         
         DisjointSet ds(n);
         for (int u = 0; u < n; ++u) {
-            for (int v: newAdj[u]) {
+            for (int v: adj[u]) {
                 //* check only unique edges
                 //* in undirected graph, we have both u->v and v->u
                 
