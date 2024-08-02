@@ -1,4 +1,5 @@
 
+
 /*
 Method 2: Double BFS
 -----------------------------
@@ -30,7 +31,8 @@ Else if path length is even, then centers = middle 2 nodes in this path
 
             lastNode = u;
             for (int v: adj[u]) {
-                if (parent[v] != -2) {
+                // if not visited
+                if (parent[v] == -2) {
                     parent[v] = u;
                     q.push(v);
                 }
@@ -50,7 +52,7 @@ Else if path length is even, then centers = middle 2 nodes in this path
         pair<int, vector<int>> bfsRes = bfs(0, adj);
         int x = bfsRes.first;
 
-        bfsRes = (x, adj);
+        bfsRes = bfs(x, adj);
         int y = bfsRes.first;
         vector<int> &parent = bfsRes.second;
 
@@ -58,13 +60,13 @@ Else if path length is even, then centers = middle 2 nodes in this path
         vector<int> path;
         {
             int u = y;
-            while (parent[u] >= 0) {
+            while (u >= 0) {
                 path.push_back(u);
                 u = parent[u];
             }
             reverse(path.begin(), path.end());
         }
-        
+
         if (path.size() % 2 == 1) return {path[path.size() / 2]};
         else return {path[path.size() / 2 - 1], path[path.size() / 2]};
     }
