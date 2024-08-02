@@ -59,7 +59,7 @@ Else if number of nodes in outermost layer is 2 and no. of remaining nodes is al
 
 
 
-// Alternate:
+// Alternate Implementation:
 // vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
 //         vector<vector<int>> adj(n);
 //         vector<int> deg(n, 0);
