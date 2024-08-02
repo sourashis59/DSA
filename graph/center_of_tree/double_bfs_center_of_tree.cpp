@@ -1,5 +1,4 @@
 
-
 /*
 Method 2: Double BFS
 -----------------------------
@@ -66,6 +65,12 @@ Else if path length is even, then centers = middle 2 nodes in this path
             }
             reverse(path.begin(), path.end());
         }
+
+        // printf("\nx=%d, y=%d", x, y);
+        // printf("\nparents: ");
+        // for (int p: parent) {
+        //     cout << p << ", ";
+        // }        
 
         if (path.size() % 2 == 1) return {path[path.size() / 2]};
         else return {path[path.size() / 2 - 1], path[path.size() / 2]};
