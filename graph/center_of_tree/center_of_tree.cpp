@@ -57,4 +57,71 @@ Else if number of nodes in outermost layer is 2 and no. of remaining nodes is al
         return res;
     }
 
+
+
+// Alternate:
+// vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+//         vector<vector<int>> adj(n);
+//         vector<int> deg(n, 0);
+        
+//         // // if you need the layers also
+//         // vector<int> allLevels;
+
+//         for (const auto &e: edges) {
+//             int u = e[0], v = e[1];
+            
+//             adj[u].push_back(v);
+//             adj[v].push_back(u);
+
+//             ++deg[u];
+//             ++deg[v];
+//         }
+
+//         // enqueue the outer most layer
+//         queue<int> q;
+//         for (int u = 0; u < n; ++u) {
+//             //degree == 1
+//             if (deg[u] <= 1) {
+//                 q.push(u);
+//             }
+//         }
+
+//         int remainingNodes = n;
+//         while (remainingNodes > 2) {
+//             // process the current outermost level
+//             int levelSize = q.size();
+//             remainingNodes -= levelSize;
+//             // vector<int> currLevel;
+
+//             for (int i = 0; i < levelSize; ++i) {    
+//                 int u = q.front();
+//                 q.pop();
+
+//                 // remove u from the graph along with the edges
+//                 // At the time of popping from queue, u can have only one edge
+                
+//                 // make outdegree[u] = 0
+//                 deg[u] = 0;
+//                 // currLevel.push_back(u);
+
+//                 for (int v: adj[u]) {
+//                     // remove the edge u->v [indeg[v] -= 1]
+//                     --deg[v];
+//                     if (deg[v] == 1) {
+//                         q.push(v);
+//                     }
+//                 }
+//             }
+
+//             // keep the current level
+//             // allLevels.push_back(currLevel);
+//         }
+
+//         vector<int> res;
+//         while (q.size()) {
+//             res.push_back(q.front());
+//             q.pop();
+//         }
+//         return res;
+//     }
 };
