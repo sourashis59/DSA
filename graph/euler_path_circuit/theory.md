@@ -6,11 +6,13 @@
 
 ### Conditions:
 - For Circuit, all nodes should be connected
-|  | Euler Circuit | Euler path |
-|----------|----------|----------|
-| Undirected graph | Every vertex has even degree | Either Euler Circuit exists, or exactly two vertices have odd degree |
-| Directed graph | Every vertex has equal indegree and outdegree | Either Euler Circuit exists, or one vertex has (outdeg - indeg = 1) and one vertex has (indef - outdeg = 1) and all other vertices have equal in and out degree |
 
+|  | ***Euler Circuit*** | ***Euler path*** |
+|----------|----------|----------|
+| ***Undirected graph*** | Every vertex has even degree | Either Euler Circuit exists, or exactly two vertices have odd degree |
+| ***Directed graph*** | Every vertex has equal indegree and outdegree | Either Euler Circuit exists, or one vertex has (outdeg = indeg + 1) and one vertex has (indeg = outdeg + 1) and all other vertices have equal in and out degree |
+
+- In Euler path for directed graph, the node with (outdeg = indeg + 1) is the starting node of the Euler Path, and the node with (indeg = outdeg + 1) is the ending node.
 
 
 # Find one Euler Path:
