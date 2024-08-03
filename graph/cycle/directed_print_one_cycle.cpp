@@ -19,10 +19,14 @@ public:
                     oneCycle.push_back(x);
                     
                 oneCycle.push_back(v);
+                dfsFinished[u] = true;
                 return true;
             } else if (!dfsStarted[v]) {
                 parent[v] = u;
-                if (dfs(v)) return true;
+                if (dfs(v)) {
+                    dfsFinished[u] = true;
+                    return true;
+                }
             }
         }
         dfsFinished[u] = true;
