@@ -1,8 +1,20 @@
 # Condition for Euler path:
+### Definitions:
+- Euler Path: Path in graph which covers all edges
+- Euler Circuit: Cycle in graph which covers all edges
+- Euler Circuit is also and Euler Path
+
+### Conditions:
+- For Circuit, all nodes should be connected
+|  | Euler Circuit | Euler path |
+|----------|----------|----------|
+| Undirected graph | Every vertex has even degree | Either Euler Circuit exists, or exactly two vertices have odd degree |
+| Directed graph | Every vertex has equal indegree and outdegree | Either Euler Circuit exists, or one vertex has (outdeg - indeg = 1) and one vertex has (indef - outdeg = 1) and all other vertices have equal in and out degree |
+
 
 
 # Find one Euler Path:
-## Algorithm:
+## Hierholzer Algorithm:
 ```
 dfs(e) {
   remove edge e from graph
@@ -23,7 +35,7 @@ findEulerPath() {
 }
 ```
 
-## Implementation:
+### Implementation:
 ```
 vector<vector<int>> adj;    
 vector<int> res;
