@@ -39,11 +39,8 @@ public:
         while (q.size() && res.size() < n - 1) {
             Edge e = q.top();
             q.pop();
-            int u = e.u;
-            int v = e.v;
-            int w = e.w;
-            if (!ds.connected(u, v)) {
-                ds.doUnion(u, v);
+            if (!ds.connected(e.u, e.v)) {
+                ds.doUnion(e.u, e.v);
                 res.push_back(e);
             }
         }
