@@ -31,7 +31,19 @@ public:
         return s.substr(resStart, maxLen);
     }
 
+     /*
+        Rule:
+        -----------------------
+        If subproblem (i,j) depends on (i+1, j-1)
+        And recursive function is called: (i=0, j=n-1).
 
+        Then, in bottom up, approach, 
+        i should loop from (n-1) to 0
+        and j should loop from (i-1) to (n-1).
+
+        Or, for simplicity make: j -> 0 to (n-1)
+    
+    */
     string bottomUp(const string &s) {
         int n = s.size();
         vector<vector<int>> isPalin = vector<vector<int>>(n + 1, vector<int>(n + 1, false));
@@ -59,7 +71,7 @@ public:
         }
         return s.substr(resStart, maxLen);    
     }
-    
+
     string bottomUpSpaceOptimized(const string &s) {
         int n = s.size();
         // ip -> isPalin[i]
@@ -94,5 +106,4 @@ public:
     string longestPalindrome(string s) {
         return bottomUpSpaceOptimized(s);
     }
-
 };
