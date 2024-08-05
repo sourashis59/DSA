@@ -27,10 +27,14 @@ public:
 
 
     int bottomUp() {
-        vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n, 0));
+        vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n, -1));
         for (int i = n - 1; i >= 0; --i) {
-            for (int j = i; j < n; ++j) {
+            for (int j = max(0, i - 1); j < n; ++j) {
                 // copy paste
+                if (i > j) {
+                    lps[i][j] = 0;
+                    continue;
+                }
                 if (i == j) {
                     lps[i][j] = 1;
                     continue;
@@ -52,12 +56,16 @@ public:
             lps -> lps[i]
             lpsPrev -> lps[i+1]
         */
-        vector<int> lps(n);
-        vector<int> lpsPrev(n);
+        vector<int> lps(n, -1);
+        vector<int> lpsPrev(n, -1);
         // vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n, 0));
         for (int i = n - 1; i >= 0; --i) {
-            for (int j = i; j < n; ++j) {
+            for (int j = max(0, i - 1); j < n; ++j) {
                 // copy paste
+                if (i > j) {
+                    lps[j] = 0;
+                    continue;
+                }
                 if (i == j) {
                     lps[j] = 1;
                     continue;
@@ -78,6 +86,7 @@ public:
         n = s.size();    
         
         return bottomUpSpaceOptimized();
+        // return bottomUp();
         // return topDown();
     }
 };
