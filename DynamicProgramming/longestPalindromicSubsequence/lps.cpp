@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/longest-palindromic-subsequence/submissions/1344894592/
 class Solution {
 public:
 
@@ -43,12 +44,40 @@ public:
         return lps[0][n - 1];
     }
 
+    int bottomUpSpaceOptimized() {
+        /*
+            Inside loop, (i, j) depends on: (i+1, j-1), (i, j-1), (i+1, j)
+            So, we can keep 2 arrays: i and i+1
+
+            lps -> lps[i]
+            lpsPrev -> lps[i+1]
+        */
+        vector<int> lps(n);
+        vector<int> lpsPrev(n);
+        // vector<vector<int>> lps = vector<vector<int>>(n, vector<int>(n, 0));
+        for (int i = n - 1; i >= 0; --i) {
+            for (int j = i; j < n; ++j) {
+                // copy paste
+                if (i == j) {
+                    lps[j] = 1;
+                    continue;
+                }
+                int res = 0;
+                if (s[i] == s[j]) res = 2 + lpsPrev[j - 1];
+                else res = max(lps[j - 1], lpsPrev[j]);
+                lps[j] = res;
+            }
+            // shift pointers
+            lpsPrev = lps;
+        }
+        return lps[n - 1];
+    }
 
     int longestPalindromeSubseq(string _s) {
         s = _s;
         n = s.size();    
         
-        return bottomUp();
+        return bottomUpSpaceOptimized();
         // return topDown();
     }
 };
