@@ -1,3 +1,4 @@
+// https://leetcode.com/problems/longest-increasing-subsequence/
 class Solution {
 public: 
 
@@ -62,11 +63,49 @@ public:
         return res;
     }
 
+    int bottomUpSpaceOptimized() {
+        /*
+            Inside loop, (i) depends on (i, prevInd+1), (i+1, prevInd+1), (i+1, i+1)
+            So we can only keep i and i+1 th arrays
+
+            l -> l[i]
+            lprev -> l[i+1]
+        */
+        vector<int> l(n + 1);
+        vector<int> lprev(n + 1);
+        int maxLen = 0;
+        for (int i = n; i >= 0; --i) {
+            for (int prevInd = -1; prevInd < i; ++prevInd) {
+                // copy pasta
+                if (i == n) {
+                    l[prevInd + 1] = 0;
+                    continue;
+                }
+
+                // dont take
+                int l1 = lprev[prevInd + 1];
+
+                // take (if possible)
+                int l2 = 0;
+                if (prevInd == -1 || a[prevInd] < a[i])
+                    l2 = 1 + lprev[i + 1];
+                
+                l[prevInd + 1] = max(l1, l2);
+
+                // new change:
+                maxLen = max(maxLen, l[prevInd + 1]);
+            }
+            // shift pointers
+            lprev = l;
+        }
+        return maxLen;
+    }
+
     int lengthOfLIS(vector<int>& _a) {
         a = _a;
         n = a.size();
 
-        return bottomUp();
+        return bottomUpSpaceOptimized();
         // return topDown();
     }
 };
