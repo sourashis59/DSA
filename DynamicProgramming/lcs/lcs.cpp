@@ -37,6 +37,30 @@ public:
         return l[0][0];
     }
 
+    int bottomUpSpaceOptimized() {
+        // l -> l[i]
+        // lprev -> l[i + 1]
+        vector<int> l(n + 1);
+        vector<int> lprev(n + 1);
+        for (int i = m; i >= 0; --i) {
+            for (int j = n; j >= 0; --j) {
+                if (i == m || j == n) {
+                    l[j] = 0;
+                    continue;
+                }
+
+                int res = 0;
+                if (s[i] == t[j]) res = 1 + lprev[j + 1];
+                else res = max(l[j + 1], lprev[j]);
+                l[j] = res;
+            }
+            // shift the pointers
+            // (here, swap(l, lprev) would be same, but more efficient)
+            lprev = l;
+        }
+        return l[0];
+    }
+
     int longestCommonSubsequence(string _s, string _t) {
         s = _s;
         t = _t;
