@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/maximum-length-of-repeated-subarray/description/
+
 class Solution {
 public:
 
@@ -54,11 +56,41 @@ public:
         return res;
     }
 
+    int bottomUpSpaceOptimized() {
+        // (i,j) is dependent on: (i+1, j+1). ==> we can only keep i and i+1 th array
+        // l -> l[i]
+        // lprev -> l[i+1]
+        vector<int> l(n + 1);
+        vector<int> lprev(n + 1);
+        int maxLen = 0;
+        for (int i = m; i >= 0; --i) {
+            for (int j = n; j >= 0; --j) {
+                // copy paste
+                if (i == m || j == n) {
+                    l[j] = 0;
+                    continue;
+                }
+
+                int res = 0;
+                if (s[i] == t[j]) res = 1 + lprev[j + 1];
+                else res = 0;
+                l[j] = res;
+
+                // extra line
+                maxLen = max(maxLen, l[j]);
+            }
+            // shift pointers
+            lprev = l;
+        }
+        return maxLen;
+    }
+
+
     int findLength(vector<int>& s, vector<int>& t) {
         this->s = s;
         this->t = t;
         m = s.size(), n = t.size();
 
-        return bottomUp();
+        return bottomUpSpaceOptimized();
     }
 };
