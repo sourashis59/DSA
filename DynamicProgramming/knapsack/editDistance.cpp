@@ -18,10 +18,10 @@ public:
         if (s[i] == t[j]) res = min(res, mc(i + 1, j + 1));
         // replace s[i]
         res = min(res, 1 + mc(i + 1, j + 1));
-        // delete t[j]
-        res = min(res, 1 + mc(i, j + 1));
-        // insert s[i] at start of t[j...end]
+        // delete s[i]
         res = min(res, 1 + mc(i + 1, j));
+        // insert t[j] at start of s[i...end]
+        res = min(res, 1 + mc(i, j + 1));
 
         return memo[i][j] = res;   
     }
@@ -46,12 +46,9 @@ public:
 
                 int res = INT_MAX;
                 if (s[i] == t[j]) res = min(res, mc[i + 1][j + 1]);
-                // replace s[i]
                 res = min(res, 1 + mc[i + 1][j + 1]);
-                // delete t[j]
-                res = min(res, 1 + mc[i][j + 1]);
-                // insert s[i] at start of t[j...end]
                 res = min(res, 1 + mc[i + 1][j]);
+                res = min(res, 1 + mc[i][j + 1]);
 
                 mc[i][j] = res;   
             }
@@ -85,10 +82,8 @@ public:
                 if (s[i] == t[j]) res = min(res, mcPrev[j + 1]);
                 // replace s[i]
                 res = min(res, 1 + mcPrev[j + 1]);
-                // delete t[j]
-                res = min(res, 1 + mc[j + 1]);
-                // insert s[i] at start of t[j...end]
                 res = min(res, 1 + mcPrev[j]);
+                res = min(res, 1 + mc[j + 1]);
 
                 mc[j] = res;   
             }
@@ -102,10 +97,10 @@ public:
         s = _s, t = _t;
         m = s.size(), n = t.size();
 
-        // memo = vector<vector<int>>(m, vector<int>(n, -1));
-        // return mc(0, 0);
+        memo = vector<vector<int>>(m, vector<int>(n, -1));
+        return mc(0, 0);
   
         // return bottomUp();
-        return bottomUpSpaceOptimization();
+        // return bottomUpSpaceOptimization();
     }
 };
