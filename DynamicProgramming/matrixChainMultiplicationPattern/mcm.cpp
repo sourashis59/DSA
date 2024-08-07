@@ -25,6 +25,7 @@ public:
     int bottomUp() {
         vector<vector<int>> mc(n, vector<int>(n, -1));
         for (int i = n - 2; i >= 0; --i) {
+            // or, j = 0 to n-2 => will also be correct
             for (int j = i; j <= n - 2; ++j) {
                 if (i == j) {
                     mc[i][j] = 0;
