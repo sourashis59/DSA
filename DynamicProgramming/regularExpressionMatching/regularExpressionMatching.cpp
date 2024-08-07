@@ -154,6 +154,21 @@ public:
         return res;
     }
 
+
+    /*
+    Some corner cases:
+    "ab"
+    ".*"
+    "ab"
+    ".*c"
+    "abc"
+    "a***abc"
+    "aab"
+    "c*a*b"
+    "a"
+    "ab*"
+    
+    */
     bool isMatch(string s, string p) {
         // remove consecutive *s and put only one *, because "**" is equivalent to "*"
         this->p = processPattern(p);
