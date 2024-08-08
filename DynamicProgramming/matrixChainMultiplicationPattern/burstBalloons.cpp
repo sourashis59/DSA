@@ -4,8 +4,11 @@ public:
 /*    
 Pseudo Intuition:
 ====================================================
-Dynamic Programming:
 ----------------------------------
+MAKE THE SUBPROBLEMS INDEPENDENT:
+-------------------------------------------------
+
+
 If you burst k-th ballon in arr[i...j], then for you can't merge the answers of left and right parts,
 because they are not independent.
 
