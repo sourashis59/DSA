@@ -22,3 +22,6 @@
   - Node u will be mapped to (u, true) if u is reached via even number of nodes from source, else (u, false.
   - Source node: (source, true) and dest: (dest, true).
     
+- ### LCA of 2 nodes in a directed graph:
+  - In the transpose graph, start multi source BFSs from the 2 nodes independently (use visitedA[] and visitedB[])
+  - The first node which has true visitedA[] and visitedB[] ==> is the LCA of a and B
