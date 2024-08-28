@@ -5,18 +5,18 @@ public:
         return a < b;
     }
 
-    int partition(int low, int high, vector<int> &arr) {
-        int pivot = arr[low];
+    int partition(int low, int high, vector<int> &a) {
+        int pivot = a[low];
         int i = low + 1, j = high;
         while (i <= j) {
             //SOME EDGE CONDITION: 
             //DONT PUT EQUAL HERE --> IT WILL BE SLOWER (PARTITIONING WILL BE BAD)
             //IF MOST ELEMENTS ARE EQUAL 
-            if (less(arr[i], pivot)) ++i;
-            else if (less(pivot, arr[j])) --j;
-            else swap(arr[i++], arr[j--]);
+            if (a[i] < pivot) ++i;
+            else if (a[j] > pivot) --j;
+            else swap(a[i++], a[j--]);
         }
-        if (less(arr[j], arr[low])) swap(arr[j], arr[low]);
+        swap(a[low], a[j]);
         return j;
     }
     
