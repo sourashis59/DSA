@@ -25,6 +25,9 @@
   
   - #### Find shortest path from source to dest, given you can halve the weight of at most one edge:
     - State space search: state = (node, whether you used the halving power before)
+    - Neighbors of
+      - (u, true) --> { (neighbor node of u, true) with same weight }
+      - (u, false) --> { (neighbor node of u, false) with same weight } Union { (neighbor node of u, true) with half weight } 
     - Question: https://cses.fi/problemset/result/10446196/
       
 - ### LCA of 2 nodes in a directed graph:
