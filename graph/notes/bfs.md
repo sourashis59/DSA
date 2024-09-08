@@ -17,16 +17,16 @@
   - ***For Weighted Graph***:
     - just do Dijkstra isntead of BFS man!
 - ### **State Space Search Application:**
-- #### Find the shortest path of even length in unweighted graph (Dijkstra for weighted graph):
-  - Create a state space search graph:
-  - Where, one node of original graph can map to max of 2 nodes of state space search graph.
-  - Node u will be mapped to (u, true) if u is reached via even number of nodes from source, else (u, false.
-  - Source node: (source, true) and dest: (dest, true).
-
-- #### Find shortest path from source to dest, given you can halve the weight of at most one edge:
-  - State space search: state = (node, whether you used the halving power before)
-  - Question: https://cses.fi/problemset/result/10446196/
-    
+  - #### Find the shortest path of even length in unweighted graph (Dijkstra for weighted graph):
+    - Create a state space search graph:
+    - Where, one node of original graph can map to max of 2 nodes of state space search graph.
+    - Node u will be mapped to (u, true) if u is reached via even number of nodes from source, else (u, false.
+    - Source node: (source, true) and dest: (dest, true).
+  
+  - #### Find shortest path from source to dest, given you can halve the weight of at most one edge:
+    - State space search: state = (node, whether you used the halving power before)
+    - Question: https://cses.fi/problemset/result/10446196/
+      
 - ### LCA of 2 nodes in a directed graph:
   - In the transpose graph, start multi source BFSs from the 2 nodes independently (use visitedA[] and visitedB[])
   - The first node which has true visitedA[] and visitedB[] ==> is the LCA of a and B
