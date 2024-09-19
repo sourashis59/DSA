@@ -1,4 +1,4 @@
-// Mal: https://cses.fi/problemset/result/10566975/
+// Mal: https://cses.fi/problemset/task/1678/
 
 class Solution {
     
