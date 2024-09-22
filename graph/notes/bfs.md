@@ -31,10 +31,10 @@
     - Question: https://cses.fi/problemset/result/10446196/
 
   - #### Shortest distance from source to dest with atmost k edges:
-  - Mal: https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
-  - Solutions
-    - Bellman Ford / DP
-    - State space search & Dijkstra   
+    - Mal: https://leetcode.com/problems/cheapest-flights-within-k-stops/description/
+    - Solutions
+      - Bellman Ford / DP
+      - State space search & Dijkstra   
       
 - ### LCA of 2 nodes in a directed graph:
   - In the transpose graph, start multi source BFSs from the 2 nodes independently (use visitedA[] and visitedB[])
