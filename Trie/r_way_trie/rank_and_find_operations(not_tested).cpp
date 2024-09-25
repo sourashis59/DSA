@@ -75,7 +75,8 @@ public:
     ~Trie() { destroy(_root); _root = nullptr; }
 
     void put(const string &key) { 
-        if (get(_root, 0, key) != nullptr) return;
+        TrieNode *x = get(_root, 0, key);
+        if (x != nullptr && x->val != 0) return;
         _root = put(_root, 0, key, 1); 
     }
 
