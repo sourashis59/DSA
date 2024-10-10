@@ -16,7 +16,8 @@
 
 
 # Find one Euler Path:
-## Hierholzer Algorithm:
+## Hierholzer Algorithm: 
+### Edges in Euler Path = edges in Postorder DFS  
 ```
 dfs(e) {
   remove edge e from graph
