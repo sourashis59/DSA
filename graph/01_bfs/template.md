@@ -1,6 +1,7 @@
 # 0-1 BFS
 - If edge weights are 0 or 1, then 0-1 BFS can be used instead of Dijkstra algorithm.
 - Time complexity of 0-1 BFS = `O(V + E)`
+- https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
 
 ## Dijsktra algorithm [Time = `O(E * logV)`]
 ```
@@ -15,9 +16,9 @@ dijkstra(source, target) {
 
   while (q.size()) {
     u = q.pop();
+    if (visited[v]) continue;
     visited[u] = true;
     for (v: adj[u]) {
-      if (visited[v]) continue;
       if (dist[u] + weight(u, v) < dist[v]) {
         dist[v] = dist[u] + weight(u, v);
         q.push({v, dist[v]});
@@ -50,9 +51,9 @@ shortest_dist(source, target) {
     //------------------------------CHANGE------------------------------
     u = q.pop_front();
     //------------------------------CHANGE------------------------------
+    if (visited[v]) continue;
     visited[u] = true;
     for (v: adj[u]) {
-      if (visited[v]) continue;
       if (dist[u] + weight(u, v) < dist[v]) {
         dist[v] = dist[u] + weight(u, v);
         //------------------------------CHANGE------------------------------
