@@ -22,7 +22,19 @@ class Solution {
         return memo[i][c] = max(m1, m2);
     }
     
+    /*
+    Here {i} and {c} are not dependent on each other. So we can swap the for loops:
     
+    for (int i = n; i >= 0; --i) {
+        for (int c = 0; c <= maxCap; ++c) {
+            |
+            | can be changed to.
+            | both will give correct ans.
+            V
+            
+    for (int c = 0; c <= maxCap; ++c) {
+        for (int i = n; i >= 0; --i) {
+    */
     int bottomUp(int maxCap) {
         vector<vector<int>> mv = vector<vector<int>>(n + 1, vector<int>(maxCap + 1, -1));
         for (int i = n; i >= 0; --i) {
