@@ -1,4 +1,6 @@
-- Question Link: https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/
+- Question Link:
+    - https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/
+    - https://leetcode.com/problems/find-weighted-median-node-in-tree/ 
 
 ```cpp
 class LCAFinder {
